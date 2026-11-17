@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cuaderno digital · La ciudad del futuro</title>
+<style>
+:root{--ink:#17212b;--muted:#617080;--paper:#f4f7fa;--card:#fff;--accent:#176b87;--accent2:#dff2f6;--line:#dce4ea;--good:#18794e}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+header{background:linear-gradient(120deg,#12384c,#176b87);color:white;padding:30px 22px}
+header .wrap{max-width:1180px;margin:auto} h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.12;margin:0 0 10px} header p{max-width:760px;margin:0;color:#e5f3f7}
+.layout{max-width:1180px;margin:22px auto;padding:0 16px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px}
+nav,.panel,.mission{background:var(--card);border:1px solid var(--line);border-radius:16px}
+nav{padding:16px;height:max-content;position:sticky;top:12px} nav h2{font-size:1rem;margin:0 0 10px}
+nav button{width:100%;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:9px;color:var(--ink);cursor:pointer;font:inherit;font-size:.92rem}
+nav button:hover,nav button.active{background:var(--accent2);color:#104b60;font-weight:650}
+.progress{height:9px;background:#e7edf1;border-radius:20px;overflow:hidden;margin:9px 0 6px}.bar{height:100%;width:0;background:var(--good);transition:width .2s}
+.small{font-size:.84rem;color:var(--muted)}
+main{min-width:0}.panel{padding:22px;margin-bottom:16px}.eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem}
+h2{font-size:1.55rem;line-height:1.2;margin:5px 0 12px}h3{font-size:1.05rem;margin:20px 0 7px}p{margin:8px 0}ul,ol{padding-left:23px}li{margin:5px 0}
+.challenge{background:#fff7e6;border-left:4px solid #d99b27;padding:12px 15px;border-radius:8px;margin:16px 0}
+.deliver{background:#eaf5ef;border-left:4px solid #329568;padding:12px 15px;border-radius:8px;margin:16px 0}
+.resources a{display:inline-block;margin:4px 8px 4px 0;color:var(--accent);font-weight:600}
+.task{display:flex;gap:10px;align-items:flex-start;margin:9px 0}.task input{margin-top:6px;accent-color:var(--good);width:17px;height:17px}
+label.field{display:block;font-weight:650;margin:16px 0 6px}textarea,input[type=text]{width:100%;border:1px solid #cbd6de;border-radius:10px;padding:11px;font:inherit;background:#fcfdfe;color:var(--ink)}textarea{min-height:100px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+button.action{border:0;border-radius:10px;padding:10px 15px;background:var(--accent);color:white;font:inherit;font-weight:650;cursor:pointer}
+button.secondary{background:#e8eef2;color:#20313d}button.action:hover{filter:brightness(.95)}
+footer{max-width:1180px;margin:0 auto 30px;padding:0 16px;color:var(--muted);font-size:.85rem}
+.tutorial{margin:12px 0;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:#f9fcfd}.tutorial summary{cursor:pointer;font-weight:700;color:var(--accent)}.tutorial[open]{background:#f4fafb}.tutorial h3{margin-top:12px}.hidden{display:none}.tag{display:inline-block;background:var(--accent2);color:#14546b;padding:3px 9px;border-radius:30px;font-size:.8rem;font-weight:650}
+@media(max-width:760px){.layout{grid-template-columns:1fr}nav{position:static}nav .navgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px}nav button{font-size:.83rem;padding:8px}.panel{padding:17px}}
+@media print{header{background:#fff;color:#111;padding:10px 0}header p{color:#333}.layout{display:block}nav,.actions{display:none}.panel,.mission{border:0;break-inside:avoid}.mission{display:block!important}.mission:not(.current){display:block!important}body{background:white}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow" style="color:#bfe8f1">Cuaderno digital · 6.º de Primaria · PRO</div>
+<h1>La ciudad del futuro</h1>
+<p>Doce misiones para investigar, calcular, experimentar, diseñar y comunicar. Tu reto: crear una ciudad sostenible e inteligente para 5.000 habitantes con un presupuesto máximo de 10 millones de euros.</p>
+</div></header>
+<div class="layout">
+<nav>
+<h2>Misiones</h2>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="small" id="progressText">0 de 12 misiones completadas</div>
+<div class="navgrid" id="nav"></div>
+<div class="actions"><button class="action secondary" onclick="window.print()">Imprimir cuaderno</button></div>
+</nav>
+<main>
+<section class="panel">
+<div class="eyebrow">Tu proyecto</div>
+<h2>Una ciudad para vivir mejor</h2>
+<p>Trabajarás como parte de un equipo de jóvenes investigadores, arquitectos, científicos y programadores. Cada misión aporta una pieza al proyecto final. Antes de utilizar cada herramienta, abre su apartado «Aprende a utilizar…»: encontrarás una explicación, instrucciones guiadas y una práctica inicial.</p>
+<p><strong>Antes de empezar:</strong> escribe un nombre para tu ciudad y una idea que quieras que la defina.</p>
+<label class="field" for="cityName">Nombre de la ciudad</label><input id="cityName" type="text" placeholder="Ej.: Horizonte Verde" data-save="cityName">
+<label class="field" for="cityIdea">La idea que quiero que represente</label><textarea id="cityIdea" placeholder="Quiero que mi ciudad sea..." data-save="cityIdea"></textarea>
+<div class="deliver"><strong>Producto final:</strong> plano a escala, presupuesto, informe científico, modelo 3D, programa interactivo, relato y presentación oral.</div>
+</section>
+<div id="missionContainer"></div>
+<section class="panel">
+<div class="eyebrow">Cierre del proyecto</div><h2>Mi presentación final</h2>
+<p>Prepara una exposición de 5 a 8 minutos. Usa esta lista para comprobar que no olvidas ninguna parte.</p>
+<div id="finalChecks"></div>
+<label class="field">¿Cuál ha sido la decisión más difícil y por qué?</label><textarea data-save="reflection1" placeholder="Explica tu razonamiento..."></textarea>
+<label class="field">¿Qué cambiarías si tuvieras un mes más?</label><textarea data-save="reflection2" placeholder="Mi siguiente mejora sería..."></textarea>
+<label class="field">¿Qué has aprendido sobre trabajar con datos y tomar decisiones?</label><textarea data-save="reflection3" placeholder="He aprendido que..."></textarea>
+</section>
+<section class="panel">
+<div class="eyebrow">Evaluación</div><h2>Rúbrica de autoevaluación</h2>
+<p>Valora tu trabajo del 1 al 4: 1 = necesito mejorar; 2 = en desarrollo; 3 = conseguido; 4 = excelente.</p>
+<div id="rubric"></div>
+<label class="field">Mi valoración global y una evidencia que la justifique</label><textarea data-save="rubricComment" placeholder="Me pongo esta valoración porque..."></textarea>
+<div class="actions">
+<button class="action" onclick="exportWork()">Exportar mis respuestas</button>
+<button class="action secondary" onclick="window.print()">Guardar o imprimir en PDF</button>
+<button class="action secondary" onclick="resetWork()">Borrar mis respuestas</button>
+</div>
+<p class="small">Las respuestas se guardan automáticamente en este navegador y dispositivo. Exporta una copia si vas a cambiar de dispositivo o navegador.</p>
+</section>
+</main></div>
+<footer>Cuaderno de enriquecimiento · Proyecto interdisciplinar de Matemáticas, Ciencias, Tecnología y Lengua.</footer>
+<script>
+const missions = [
+{title:"Detectives de ciudades",week:1,goal:"Descubrir qué características hacen que una ciudad sea sostenible y aprender a distinguir opiniones de evidencias.",
+steps:["Investiga dos ciudades: una que consideres sostenible y otra que tenga problemas urbanos o medioambientales.","Explora ambas con Google Earth. Observa zonas verdes, transporte, densidad de edificios, agua y espacios públicos.","Identifica al menos tres problemas o buenas soluciones urbanas. Anota datos concretos cuando los encuentres.","Consulta al menos tres fuentes fiables. Registra quién publica la información, la fecha y el dato que utilizarás.","Compara las ciudades y selecciona una idea que te gustaría incorporar a tu propio proyecto."],challenge:"¿Una ciudad con muchos parques es necesariamente sostenible? Piensa también en transporte, energía, agua, vivienda y desigualdad.",deliver:"Un dossier comparativo con un mapa o capturas anotadas, tres fuentes y una conclusión razonada.",resources:[["Google Earth","https://earth.google.com/"],["NASA Climate Kids","https://climatekids.nasa.gov/"]],questions:["¿Qué dato te ha sorprendido más?","¿Qué problema te parece prioritario resolver y por qué?"]},
+{title:"El territorio y sus límites",week:2,goal:"Elegir un emplazamiento adecuado y representar información geográfica mediante un mapa.",
+steps:["Elige un territorio real o imaginario donde pueda construirse la ciudad para 5.000 habitantes.","Investiga el relieve, el clima, la disponibilidad de agua, los ecosistemas y los riesgos naturales.","Marca las zonas inundables, las pendientes pronunciadas y los espacios naturales que conviene proteger.","Dibuja un mapa con título, escala, orientación, leyenda y una cuadrícula o coordenadas.","Justifica por qué el lugar es adecuado y qué zonas no deberían urbanizarse."],challenge:"El terreno disponible se reduce un 20 %. ¿Qué zonas conservarías y cómo reorganizarías el espacio?",deliver:"Mapa del territorio y un informe breve que justifique la ubicación elegida.",resources:[["Google Earth","https://earth.google.com/"],["Google Maps","https://maps.google.com/"]],questions:["¿Qué factor natural condiciona más tu diseño?","¿Qué riesgo has tenido en cuenta y cómo lo reducirías?"]},
+{title:"Arquitectos matemáticos",week:3,goal:"Aplicar escala, proporcionalidad, geometría, área y perímetro al diseño urbano.",
+steps:["Decide las dimensiones del terreno y elige una escala adecuada para representarlo.","Distribuye viviendas, colegio, centro de salud, comercios, transporte y zonas verdes.","Calcula el área y el perímetro de al menos cuatro espacios. Escribe las unidades.","Diseña una ruta accesible que conecte cinco servicios importantes. Explica por qué es práctica.","Compara una ciudad compacta con otra dispersa: distancias, desplazamientos, consumo de suelo y zonas verdes."],challenge:"¿Cómo conseguirías que todas las personas tuvieran los servicios básicos a una distancia razonable? Define qué significa para ti «razonable».",deliver:"Plano a escala, tabla de superficies y perímetros y explicación de las decisiones matemáticas.",resources:[["GeoGebra","https://www.geogebra.org/"],["Desmos","https://www.desmos.com/"]],questions:["¿Qué cálculo ha condicionado más tu plano?","¿Qué cambiarías para mejorar la accesibilidad?"]},
+{title:"El presupuesto inteligente",week:4,goal:"Gestionar un presupuesto limitado, calcular porcentajes y defender decisiones económicas.",
+steps:["Reparte 10.000.000 € entre vivienda, educación, sanidad, transporte, energía, agua y zonas verdes.","Crea una tabla con partida, coste, porcentaje del presupuesto y coste por habitante.","Comprueba que la suma de las partidas no supera los 10 millones de euros.","Calcula qué ocurre si cada partida recibe un 10 % menos. Decide dónde ajustarías y justifica por qué.","Explica qué necesidades son prioritarias y qué consecuencias tendría invertir menos en alguna de ellas."],challenge:"Una empresa ofrece un descuento del 12 % en un servicio durante diez años. ¿Qué información necesitas para decidir si la oferta realmente interesa? Considera costes iniciales, mantenimiento y condiciones.",deliver:"Presupuesto completo, cálculos y una defensa escrita de 150 a 200 palabras.",resources:[["Calculadora GeoGebra","https://www.geogebra.org/calculator"],["Desmos","https://www.desmos.com/"]],questions:["¿Qué partida ha sido más difícil de ajustar?","¿Cómo has comprobado que tus porcentajes son correctos?"]},
+{title:"Energía para el futuro",week:5,goal:"Comparar fuentes de energía y proponer un sistema energético fiable y sostenible.",
+steps:["Investiga energía solar, eólica e hidráulica. Añade otra fuente si lo consideras oportuno.","Compara las fuentes usando los mismos criterios: disponibilidad, impacto ambiental, coste, espacio y continuidad.","Diseña una combinación de fuentes para tu ciudad y explica dónde se instalarían.","Explica cómo almacenarías energía sobrante y cómo reducirías el consumo cuando haya poca producción.","Imagina tres días con poco sol y poco viento. Describe cómo mantendrías los servicios esenciales."],challenge:"¿Puede funcionar una ciudad solo con energías renovables? Diferencia entre producir energía, almacenarla y consumirla.",deliver:"Informe científico con una tabla comparativa y un esquema del sistema energético.",resources:[["PhET","https://phet.colorado.edu/es/"],["NASA Climate Kids","https://climatekids.nasa.gov/"]],questions:["¿Qué combinación has elegido y por qué?","¿Cuál es el punto débil de tu sistema energético?"]},
+{title:"Laboratorio de electricidad",week:6,goal:"Comprender circuitos eléctricos sencillos y aplicar el pensamiento experimental.",
+steps:["Abre un simulador y construye un circuito con fuente de energía, cables, interruptor y bombilla.","Formula una hipótesis: ¿qué ocurrirá si abres el interruptor o modificas un componente?","Cambia una sola variable cada vez y registra lo que observas.","Diseña un circuito para una farola y representa sus componentes con símbolos o dibujos claros.","Añade una propuesta de iluminación inteligente con sensores de presencia o luz ambiental."],challenge:"Diseña una farola que no ilumine al máximo cuando no haya peatones ni vehículos. ¿Qué ventajas y posibles inconvenientes tendría?",deliver:"Esquema del circuito y una ficha experimental con hipótesis, procedimiento, resultados y conclusión.",resources:[["Simulaciones PhET","https://phet.colorado.edu/es/"]],questions:["¿Qué has cambiado y qué efecto has observado?","¿Qué harías para comprobar tu conclusión una segunda vez?"]},
+{title:"Diseño 3D: edificios que ayudan",week:7,goal:"Diseñar un edificio funcional y sostenible mediante modelado tridimensional.",
+steps:["Elige un edificio importante para la ciudad: colegio, biblioteca, centro de salud o vivienda.","Construye un modelo 3D sencillo. Incluye las partes principales y proporciones coherentes.","Integra al menos dos soluciones sostenibles: protección solar, ventilación natural, tejado vegetal, paneles solares o recogida de lluvia.","Prepara una ficha con dimensiones aproximadas, materiales y función de cada solución.","Explica cómo adaptarías el edificio al clima y a las necesidades de sus usuarios."],challenge:"¿Puedes diseñar un edificio que necesite muy poca energía para mantener una temperatura confortable?",deliver:"Modelo 3D y ficha técnica con dibujos o capturas y explicación de las decisiones.",resources:[["Tinkercad","https://www.tinkercad.com/"]],questions:["¿Qué solución sostenible aporta más beneficio?","¿Qué limitación tiene tu modelo o qué detalle simplificaste?"]},
+{title:"Programa la ciudad",week:8,goal:"Crear un modelo interactivo usando secuencias, condiciones y bucles.",
+steps:["Crea en Scratch una escena que represente tu ciudad y permita interactuar con algunos elementos.","Programa al menos una acción que responda a una condición, por ejemplo, activar luces al detectar movimiento.","Utiliza un bucle para repetir una acción o actualizar un indicador.","Incluye un indicador sencillo de consumo energético, agua o contaminación.","Prueba dos escenarios diferentes, detecta errores y mejora el programa."],challenge:"Permite que el usuario tome decisiones y vea cómo afectan al equilibrio entre comodidad, coste y sostenibilidad.",deliver:"Proyecto interactivo y explicación del algoritmo: qué hace, qué condiciones utiliza y cómo lo has probado.",resources:[["Scratch","https://scratch.mit.edu/"],["Code.org","https://code.org/"]],questions:["¿Qué decisión del usuario cambia más el resultado?","¿Qué error encontraste y cómo lo solucionaste?"]},
+{title:"Una historia desde el año 2126",week:9,goal:"Desarrollar la expresión escrita y combinar imaginación con conocimientos científicos.",
+steps:["Imagina que han pasado cien años y tu ciudad lleva décadas funcionando.","Crea un personaje, describe su vida cotidiana y presenta un conflicto relacionado con tecnología, medioambiente o convivencia.","Incluye detalles científicos plausibles y distingue lo que existe hoy de lo que imaginas para el futuro.","Organiza el relato con inicio, desarrollo y desenlace. Revisa coherencia, vocabulario, puntuación y diálogos.","Escribe un final alternativo en el que una tecnología importante deje de funcionar."],challenge:"¿Cómo vivirían los habitantes si durante una semana fallaran todos los sistemas inteligentes?",deliver:"Relato de 700 a 1.000 palabras o libro digital ilustrado.",resources:[["Book Creator","https://bookcreator.com/"],["Canva","https://www.canva.com/"]],questions:["¿Qué idea del relato podría convertirse en un problema real?","¿Qué parte has revisado más y por qué?"]},
+{title:"Convencer con datos",week:10,goal:"Comunicar una propuesta con evidencias, argumentos y consideración de puntos de vista distintos.",
+steps:["Escoge una medida de tu ciudad que quieras defender.","Busca datos que permitan explicar el problema y valorar la solución. Anota las fuentes.","Diseña una infografía con problema, propuesta, datos y beneficios esperados.","Escribe un texto argumentativo de 200 a 250 palabras con tesis, argumentos y conclusión.","Incluye un argumento contrario y responde con respeto y evidencias. Indica también qué incertidumbres quedan."],challenge:"Convence a un grupo de ciudadanos que no está de acuerdo con tu propuesta. No basta con decir que es buena: debes demostrar por qué.",deliver:"Infografía y artículo de opinión de 200 a 250 palabras con fuentes identificadas.",resources:[["Canva","https://www.canva.com/"],["Desmos","https://www.desmos.com/"]],questions:["¿Cuál es tu evidencia más sólida?","¿Qué crítica a tu propuesta te parece más difícil de responder?"]},
+{title:"Integración: prueba y mejora",week:11,goal:"Comprobar la coherencia del proyecto, detectar errores y aplicar mejoras justificadas.",
+steps:["Revisa que el plano, el presupuesto, el sistema energético y el prototipo describan la misma ciudad.","Comprueba cálculos, porcentajes, unidades, fuentes y funcionamiento del programa.","Pide a otra persona que revise tu proyecto y anote dudas o puntos débiles.","Introduce al menos dos mejoras. Registra cómo era antes, qué has cambiado y por qué.","Piensa en efectos no deseados: ¿quién podría salir perjudicado?, ¿qué recurso podría escasear?, ¿qué pasaría si aumenta la población?"],challenge:"La población aumenta un 25 %. ¿Qué partes de la ciudad dejarían de funcionar correctamente? Propón una adaptación y estima su coste.",deliver:"Versión revisada del proyecto y registro de cambios con al menos dos mejoras justificadas.",resources:[["GeoGebra","https://www.geogebra.org/"],["Scratch","https://scratch.mit.edu/"]],questions:["¿Qué error o incoherencia has detectado?","¿Qué mejora ha tenido mayor impacto?"]},
+{title:"Congreso de jóvenes innovadores",week:12,goal:"Presentar, defender y evaluar el proyecto de manera clara y rigurosa.",
+steps:["Prepara una exposición de entre cinco y ocho minutos con apoyo visual.","Explica el emplazamiento, el plano, la distribución de servicios y las decisiones matemáticas.","Presenta el presupuesto, las soluciones de energía y agua y el edificio diseñado en 3D.","Muestra el programa interactivo y explica qué problema resuelve.","Cuenta qué has probado, qué has mejorado y qué limitaciones siguen existiendo.","Responde a preguntas. Si no conoces un dato, explica cómo lo investigarías en lugar de inventarlo."],challenge:"El ayuntamiento anuncia una reducción del 20 % del presupuesto. Defiende qué elementos mantendrías, cuáles modificarías y por qué.",deliver:"Presentación final y reflexión personal sobre el proceso, los aprendizajes y las mejoras futuras.",resources:[["Canva","https://www.canva.com/"],["Book Creator","https://bookcreator.com/"]],questions:["¿Qué parte del proyecto defenderías con más seguridad?","¿Qué investigarías a continuación?"]}
+];
+
+const tutorials = {
+"Google Earth": {
+ intro:"Es un globo terráqueo digital. Permite explorar lugares reales desde el espacio, acercarte a las calles y observar el relieve.",
+ steps:["Abre Google Earth y espera a que aparezca el globo.","Pulsa la lupa o el buscador y escribe el nombre de una ciudad o lugar.","Acércate con la rueda del ratón o con los botones + y −. En una pantalla táctil, separa dos dedos para ampliar.","Arrastra el mapa para desplazarte. Prueba la vista 3D y observa edificios y montañas.","Compara dos zonas: localiza parques, carreteras, ríos y áreas construidas. Anota lo que observas.","Para medir, busca la herramienta de medir o regla, marca los puntos del recorrido y lee la distancia. La interfaz puede variar según el dispositivo."],
+ practice:"Busca tu localidad y localiza un parque, una zona comercial y una vía principal. Anota cuál parece tener más espacio verde y qué observación te permite afirmarlo.",
+ tip:"No confundas una imagen aérea con un dato actualizado: las imágenes pueden tener distinta fecha. Comprueba la fecha cuando esté disponible."
+},
+"GeoGebra": {
+ intro:"Es una herramienta matemática interactiva. En esta misión la utilizarás para dibujar figuras y calcular medidas.",
+ steps:["Abre GeoGebra y elige Geometría o Calculadora gráfica, según la actividad.","En Geometría, selecciona la herramienta Punto y coloca algunos puntos en la zona de trabajo.","Elige Polígono y pulsa los vértices para construir una figura. Cierra el polígono pulsando de nuevo el primer punto.","Selecciona Distancia o Longitud para medir lados. Usa Área para calcular la superficie.","Mueve uno de los vértices y observa cómo cambian las medidas. Así comprobarás qué depende de cada dimensión.","Guarda o captura tu construcción y escribe las unidades utilizadas."],
+ practice:"Dibuja un rectángulo, mide sus lados y calcula su área multiplicando base por altura. Comprueba si coincide con el valor que muestra GeoGebra.",
+ tip:"Una medida en pantalla no representa automáticamente metros reales. Aplica la escala del plano y escribe siempre las unidades."
+},
+"Desmos": {
+ intro:"Es una calculadora gráfica y matemática. Puedes introducir operaciones, porcentajes y representar datos.",
+ steps:["Abre la calculadora gráfica de Desmos.","Pulsa una línea de expresión y escribe una operación, por ejemplo: 2500000*0.15.","Pulsa Intro para obtener el resultado. Puedes usar paréntesis para ordenar las operaciones.","Para calcular un porcentaje, multiplica la cantidad por el porcentaje expresado en decimal: 15 % = 0,15.","Para representar datos, introduce una expresión o añade una tabla con valores.","Revisa si el resultado tiene sentido y conserva el cálculo para poder explicarlo."],
+ practice:"Calcula el 18 % de 2.400.000 € y después calcula cuánto queda al restar ese descuento. Escribe las dos operaciones.",
+ tip:"Desmos ayuda a calcular, pero no decide si has planteado bien el problema. Comprueba qué cantidad representa cada número."
+},
+"PhET": {
+ intro:"PhET ofrece simulaciones interactivas de ciencias. Puedes probar fenómenos de forma segura y observar qué ocurre al cambiar una variable.",
+ steps:["Abre PhET y busca una simulación relacionada con electricidad o energía.","Pulsa el botón de inicio de la simulación. Lee los nombres de los componentes y explora los controles.","En el simulador de circuitos, arrastra una pila, cables, un interruptor y una bombilla al espacio de trabajo.","Une los componentes para formar un circuito cerrado. Comprueba si se enciende la bombilla.","Abre y cierra el interruptor. Observa qué cambia y anota el resultado.","Cambia solo un elemento cada vez. Así podrás relacionar el cambio con el efecto observado."],
+ practice:"Construye un circuito con una pila, cables y una bombilla. Escribe qué sucede cuando el circuito está cerrado y qué sucede cuando abres el interruptor.",
+ tip:"Una simulación es un modelo, no siempre reproduce todos los detalles de un experimento real. Explica qué representa y qué simplifica."
+},
+"Tinkercad": {
+ intro:"Es una aplicación de diseño 3D que funciona en el navegador. Permite crear objetos combinando formas geométricas.",
+ steps:["Entra en Tinkercad y crea un diseño 3D nuevo. Puede ser necesario iniciar sesión o usar una cuenta autorizada por tu centro.","Localiza el plano de trabajo y el panel de formas básicas.","Arrastra una caja al plano. Usa los controles blancos para cambiar largo, ancho y alto.","Arrastra otras formas para crear paredes, techo y ventanas. Utiliza los controles de vista para girar y acercarte.","Selecciona varias piezas y utiliza Alinear para colocarlas. Agrupa las piezas cuando quieras unirlas.","Cambia el nombre del diseño y guarda el proyecto. Si está permitido, comparte el enlace o exporta una imagen."],
+ practice:"Construye una casa sencilla con una base, cuatro paredes y un tejado. Cambia sus dimensiones y añade una solución sostenible, como paneles solares o un tejado verde.",
+ tip:"Empieza con formas sencillas. Comprueba las dimensiones y evita añadir detalles que no aporten información al diseño."
+},
+"Scratch": {
+ intro:"Scratch permite crear historias, juegos y simulaciones encajando bloques de programación. No necesitas escribir código con texto.",
+ steps:["Abre Scratch y pulsa Crear para iniciar un proyecto.","Reconoce las zonas: escenario, lista de objetos y categorías de bloques.","Selecciona un personaje. En Eventos, arrastra el bloque «al hacer clic en la bandera verde».","Añade un bloque de Movimiento o Apariencia para que el personaje haga algo al comenzar.","Prueba una condición: utiliza un bloque «si... entonces» para que una acción ocurra cuando se cumpla una situación.","Prueba un bucle como «por siempre» o «repetir» para mantener una acción. Pulsa la bandera verde para probar y la señal de parada para detener."],
+ practice:"Programa una farola: al pulsar la bandera verde, debe encenderse cuando el usuario pulse una tecla y apagarse al pulsar otra. Después añade un mensaje que explique el ahorro.",
+ tip:"Prueba el proyecto cada vez que añadas varios bloques. Si algo falla, revisa el orden y las condiciones."
+},
+"Book Creator": {
+ intro:"Es una herramienta para crear libros digitales con texto, imágenes, dibujos, audio y páginas organizadas.",
+ steps:["Abre Book Creator y crea un libro nuevo. Usa una cuenta o espacio de clase autorizado.","Elige un formato de página y un diseño sencillo.","Añade un título y escribe el texto en un cuadro de texto. Revisa tamaño, contraste y legibilidad.","Utiliza el botón + para insertar una imagen, un dibujo o una grabación, según las opciones disponibles.","Añade páginas con una secuencia clara: portada, inicio, desarrollo y final.","Previsualiza el libro y comprueba que el texto se lee bien y que las imágenes ayudan a comprender la historia."],
+ practice:"Crea un libro de tres páginas: portada de tu ciudad en 2126, una página que presente al personaje y otra que muestre el conflicto.",
+ tip:"Utiliza imágenes propias o con permiso de uso. No incluyas datos personales ni fotografías de otras personas sin autorización."
+},
+"Canva": {
+ intro:"Canva es una herramienta de diseño para crear infografías y presentaciones. Ofrece plantillas que puedes adaptar.",
+ steps:["Abre Canva y elige Infografía o Presentación, según el producto que vayas a crear.","Selecciona una plantilla clara. No elijas una solo porque tenga muchos adornos.","Cambia el título y sustituye los textos de ejemplo por tus propias ideas.","Añade datos, iconos o gráficos. Cada gráfico debe tener título, unidades y una fuente identificada.","Ordena la información: problema, evidencia, propuesta y beneficios. Usa pocos colores y tipografías legibles.","Revisa la ortografía y comprueba que cualquier persona pueda entender el mensaje. Descarga o comparte según las instrucciones del profesor."],
+ practice:"Crea una miniinfografía con un problema de tu ciudad, un dato que lo demuestre y una solución. Añade la fuente del dato.",
+ tip:"No inventes datos para que el diseño quede mejor. Distingue claramente entre cifras reales, estimaciones y propuestas."
+}
+};
+
+const nav=document.getElementById('nav'), container=document.getElementById('missionContainer');
+const finalItems=["Nombre y ubicación de la ciudad","Plano a escala con leyenda y cálculos","Presupuesto justificado","Sistema de energía y agua","Modelo 3D del edificio","Programa interactivo probado","Relato ambientado en 2126","Infografía y argumentos con fuentes","Mejoras realizadas y limitaciones","Preparación de respuestas a preguntas"];
+const rubricItems=["Matemáticas y razonamiento","Ciencias y pensamiento científico","Tecnología y creatividad","Comunicación y expresión","Autonomía y pensamiento crítico"];
+function esc(s){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
+missions.forEach((m,i)=>{
+ const b=document.createElement('button');b.textContent=`${i+1}. ${m.title}`;b.onclick=()=>show(i);nav.appendChild(b);
+ const sec=document.createElement('section');sec.className='panel mission'+(i===0?' current':' hidden');sec.id='m'+i;
+ sec.innerHTML=`<div class="eyebrow">Misión ${i+1} · Semana ${m.week}</div><h2>${m.title}</h2><span class="tag">Objetivo</span><p>${m.goal}</p><h3>Tu trabajo paso a paso</h3><ol>${m.steps.map((s,j)=>`<li><label class="task"><input type="checkbox" data-save="m${i}_task${j}"><span>${s}</span></label></li>`).join('')}</ol><div class="challenge"><strong>Reto de pensamiento:</strong><br>${m.challenge}</div><div class="deliver"><strong>Producto que debes entregar:</strong><br>${m.deliver}</div><h3>Recursos digitales</h3><div class="resources">${m.resources.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener">${r[0]} ↗</a>`).join('')}</div>${m.resources.map(r=>{const t=tutorials[r[0]];return t?`<details class="tutorial"><summary>Aprende a utilizar ${r[0]}</summary><p><strong>¿Qué es?</strong> ${t.intro}</p><h3>Guía paso a paso</h3><ol>${t.steps.map(s=>`<li>${s}</li>`).join('')}</ol><div class="challenge"><strong>Practica primero:</strong><br>${t.practice}</div><p class="small"><strong>Consejo:</strong> ${t.tip}</p></details>`:''}).join('')}<h3>Piensa y responde</h3>${m.questions.map((q,j)=>`<label class="field">${q}</label><textarea data-save="m${i}_answer${j}" placeholder="Escribe aquí tu respuesta..."></textarea>`).join('')}<label class="task"><input type="checkbox" data-save="m${i}_done" class="done"><strong>He terminado esta misión y he guardado mi producto.</strong></label><div class="actions"><button class="action secondary" onclick="show(${Math.max(0,i-1)})" ${i===0?'disabled':''}>← Anterior</button><button class="action" onclick="show(${Math.min(11,i+1)})" ${i===11?'disabled':''}>Siguiente misión →</button></div>`;
+ container.appendChild(sec);
+});
+document.getElementById('finalChecks').innerHTML=finalItems.map((x,i)=>`<label class="task"><input type="checkbox" data-save="final${i}"><span>${x}</span></label>`).join('');
+document.getElementById('rubric').innerHTML=rubricItems.map((x,i)=>`<label class="field">${x}</label><select data-save="rubric${i}" style="width:100%;padding:10px;border:1px solid #cbd6de;border-radius:9px"><option value="">Selecciona nivel</option><option value="1">1 · Necesito mejorar</option><option value="2">2 · En desarrollo</option><option value="3">3 · Conseguido</option><option value="4">4 · Excelente</option></select>`).join('');
+function show(i){document.querySelectorAll('.mission').forEach((s,j)=>s.classList.toggle('hidden',j!==i));document.querySelectorAll('#nav button').forEach((b,j)=>b.classList.toggle('active',j===i));window.scrollTo({top:document.querySelector('header').offsetHeight,behavior:'smooth'});}
+window.show=show;
+function updateProgress(){let n=missions.filter((m,i)=>document.querySelector(`[data-save="m${i}_done"]`)?.checked).length;document.getElementById('bar').style.width=(n/12*100)+'%';document.getElementById('progressText').textContent=`${n} de 12 misiones completadas`;}
+function load(){document.querySelectorAll('[data-save]').forEach(el=>{let v=localStorage.getItem('cityfuture_'+el.dataset.save);if(v!==null){if(el.type==='checkbox')el.checked=v==='true';else el.value=v;}});updateProgress();}
+document.addEventListener('input',e=>{if(e.target.dataset.save){localStorage.setItem('cityfuture_'+e.target.dataset.save,e.target.type==='checkbox'?e.target.checked:e.target.value);updateProgress();}});
+document.addEventListener('change',e=>{if(e.target.dataset.save){localStorage.setItem('cityfuture_'+e.target.dataset.save,e.target.type==='checkbox'?e.target.checked:e.target.value);updateProgress();}});
+function exportWork(){let out=['CUADERNO DIGITAL: LA CIUDAD DEL FUTURO',''];document.querySelectorAll('[data-save]').forEach(el=>{let v=el.type==='checkbox'?(el.checked?'Sí':'No'):el.value;if(v)out.push(el.dataset.save+': '+v);});let blob=new Blob([out.join('\n')],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mis_respuestas_ciudad_del_futuro.txt';a.click();URL.revokeObjectURL(a.href);}
+function resetWork(){if(confirm('¿Seguro que quieres borrar todas tus respuestas guardadas en este navegador?')){document.querySelectorAll('[data-save]').forEach(el=>localStorage.removeItem('cityfuture_'+el.dataset.save));location.reload();}}
+window.exportWork=exportWork;window.resetWork=resetWork;load();
+</script>
+</body></html>
